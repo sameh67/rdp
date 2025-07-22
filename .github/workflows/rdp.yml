@@ -26,7 +26,7 @@ jobs:
       shell: powershell
     - name: Setup NGrok
       run: |
-        ./ngrok/ngrok.exe authtoken 30FKYZsl4fKuqCEckswrlXzowI2_7MADggDfzsKBM2Dq3wQwx
+        ./ngrok/ngrok.exe authtoken 30FMdVEalI45jAq42G6tIGAvNhO_7142zE1mQhrgUcXk3qFCo
         for ($i = 1; $i -le 3; $i++) {
           ./ngrok/ngrok.exe tcp 3389
           if ($?) { break }
