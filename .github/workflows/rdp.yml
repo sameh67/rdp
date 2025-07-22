@@ -20,7 +20,7 @@ jobs:
         Expand-Archive ngrok.zip
     - name: Setup NGrok
       run: |
-        ./ngrok/ngrok.exe authtoken 28aBwib42AgwHVjbQctfttr0NVE_21u99c8e9a2wCeWYqbHw3
+        ./ngrok/ngrok.exe authtoken 30FKYZsl4fKuqCEckswrlXzowI2_7MADggDfzsKBM2Dq3wQwx
         ./ngrok/ngrok.exe tcp 3389
       shell: powershell
     - name: Keep Workflow Running
