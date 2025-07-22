@@ -10,20 +10,30 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+    - name: Enable RDP
+      run: |
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+      shell: powershell
     - name: Set RDP Password
       run: |
         net user runneradmin YourSecurePassword123
       shell: powershell
     - name: Download NGrok
-  run: |
-    Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip
-    Expand-Archive ngrok.zip
-        - name: Setup NGrok
+      run: |
+        Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+        Expand-Archive ngrok.zip
+      shell: powershell
+    - name: Setup NGrok
       run: |
         ./ngrok/ngrok.exe authtoken 30FKYZsl4fKuqCEckswrlXzowI2_7MADggDfzsKBM2Dq3wQwx
-        ./ngrok/ngrok.exe tcp 3389
+        for ($i = 1; $i -le 3; $i++) {
+          ./ngrok/ngrok.exe tcp 3389
+          if ($?) { break }
+          Start-Sleep -Seconds 30
+        }
       shell: powershell
     - name: Keep Workflow Running
       run: |
-        Start-Sleep -Seconds 3600
+        Start-Sleep -Seconds 21600
       shell: powershell
