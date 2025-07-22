@@ -1,0 +1,25 @@
+name: Free RDP
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Download NGrok
+      run: |
+        Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+        Expand-Archive ngrok.zip
+    - name: Setup NGrok
+      run: |
+        ./ngrok/ngrok.exe authtoken 28aBwib42AgwHVjbQctfttr0NVE_21u99c8e9a2wCeWYqbHw3
+        ./ngrok/ngrok.exe tcp 3389
+      shell: powershell
+    - name: Keep Workflow Running
+      run: |
+        Start-Sleep -Seconds 3600
+      shell: powershell
