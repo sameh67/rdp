@@ -18,12 +18,12 @@ jobs:
   run: |
     Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
     Expand-Archive ngrok.zip
-    - name: Setup NGrok
-  run: |
-    ./ngrok/ngrok.exe authtoken 30FKYZsl4fKuqCEckswrlXzowI2_7MADggDfzsKBM2Dq3wQwx
-    for ($i = 1; $i -le 3; $i++) {
-      ./ngrok/ngrok.exe tcp 3389
-      if ($?) { break }
-      Start-Sleep -Seconds 30
-    }
-  shell: powershell
+        - name: Setup NGrok
+      run: |
+        ./ngrok/ngrok.exe authtoken 30FKYZsl4fKuqCEckswrlXzowI2_7MADggDfzsKBM2Dq3wQwx
+        ./ngrok/ngrok.exe tcp 3389
+      shell: powershell
+    - name: Keep Workflow Running
+      run: |
+        Start-Sleep -Seconds 3600
+      shell: powershell
