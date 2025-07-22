@@ -10,6 +10,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+    - name: Set RDP Password
+      run: |
+        net user runneradmin YourSecurePassword123
+      shell: powershell
     - name: Download NGrok
       run: |
         Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
